@@ -1,1 +1,7 @@
-
+<?php
+   $capital=67;
+   print("Variable capital is $capital");
+   print("Variable CaPiTaL is $capital");
+?>
+output:
+Variable capital is 67Variable CaPiTaL is 67
