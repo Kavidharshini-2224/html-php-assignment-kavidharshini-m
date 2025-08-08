@@ -99,6 +99,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['calculate'])) {
 </body>
 </html>
 
+6)<?php
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $_SESSION['user'] = $_POST['name'];
+    setcookie('user', $_POST['name'], time() + 3600);
+}
+?>
+
+<html>
+<head><title>PHP Info Passing</title></head>
+<body>
+
+<h2>GET Method</h2>
+<form method="get">
+    Name: <input type="text" name="get_name">
+    <input type="submit" value="GET">
+</form>
+<?php if (isset($_GET['get_name'])) echo "GET: Hello, " . $_GET['get_name']; ?>
+
+<h2>POST + SESSION + COOKIE</h2>
+<form method="post">
+    Name: <input type="text" name="name">
+    <input type="submit" value="POST">
+</form>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") echo "POST: Hello, " . $_POST['name'];
+if (isset($_SESSION['user'])) echo "<br>SESSION: " . $_SESSION['user'];
+if (isset($_COOKIE['user'])) echo "<br>COOKIE: " . $_COOKIE['user'];
+?>
+
+</body>
+</html>
+
+
 7)<?php
 $name = "";
 $error = "";
@@ -167,10 +201,10 @@ deal(25, 11, 23, 9);
 ?>
 
 9)<?php
-$my_var = "this";         // ✅ Changed from $this
+$my_var = "this";         
 $that = "that";
 $the_other = 2.2;
-$not_set = "";            // Define it to avoid error
+$not_set = "";            
 
 print("$my_var,$not_set,{$that}+{$the_other}");
 ?>
