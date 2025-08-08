@@ -280,6 +280,22 @@ if ($result !== "") {
 </body>
 </html>
 
+15)
+<?php
+$text = "PHP is easy to learn. PHP is powerful. I love PHP!";
+
+$word = "PHP";
+
+$count = substr_count($text, $word);
+
+echo "The word '$word' occurs $count times in the given string.";
+?>
+
+Output:
+
+The word 'PHP' occurs 3 times in the given string. 
+
+16)
 17)<?php
 $balance = 5000; 
 function deposit($amount, &$balance) {
