@@ -1004,14 +1004,19 @@ echo "Highest Score: $highest (Topper: " . implode(", ", $topper) . ")<br>";
 echo "Lowest Score: $lowest <br>";
 ?>
 OUTPUT:
-<h3>Student Grade Report</h3>Alice - Score: 85 - Grade: B 
-<br>Bob - Score: 72 - Grade: C 
-<br>Charlie - Score: 90 - Grade: A 
-<br>David - Score: 65 - Grade: D 
-<br>Eva - Score: 50 - Grade: F 
-<br><h3>Summary</h3>Total Students: 5 
-<br>Average Score: 72.4 
-<br>Highest Score: 90 (Topper: Charlie)<br>Lowest Score: 50 <br>
+Student Grade Report
+Alice - Score: 85 - Grade: B 
+Bob - Score: 72 - Grade: C 
+Charlie - Score: 90 - Grade: A 
+David - Score: 65 - Grade: D 
+Eva - Score: 50 - Grade: F 
+
+Summary
+Total Students: 5 
+Average Score: 72.4 
+Highest Score: 90 (Topper: Charlie)
+Lowest Score: 50 
+
 
 40)<?php
 // Input string
@@ -1034,7 +1039,8 @@ echo "Cleaned String: $cleanString";
 ?>
 
 OUTPUT:
-Original String: Hello@123!! Welcome_to PHP#World 2025. <br>Cleaned String: Hello123 Welcometo PHPWorld 2025
+Original String: Hello@123!! Welcome_to PHP#World 2025.
+Cleaned String: Hello123 Welcometo PHPWorld 2025
 
 41)<?php
 $text = "Contact us at support@example.com, sales@shop.org or admin123@test.co.in for details.";
@@ -1047,7 +1053,10 @@ foreach ($emails as $email) {
 }
 ?>
 OUTPUT:
-Extracted Email Addresses:<br>support@example.com<br>sales@shop.org<br>admin123@test.co.in<br>
+Extracted Email Addresses:
+support@example.com
+sales@shop.org
+admin123@test.co.in
 
 42)<?php
 // Given arrays
@@ -1113,7 +1122,13 @@ echo "<h3>Summary</h3>";
 echo "Total Songs: " . count($playlist);
 ?>
 OUTPUT:
-<h3>My Playlist</h3>Shape of You<br>Believer<br>Levitating<br><h3>Summary</h3>Total Songs: 2
+My Playlist
+Shape of You
+Believer
+Levitating
+
+Summary
+Total Songs: 2
 
 45)<?php
 // Example multidimensional arrays
@@ -1140,7 +1155,7 @@ print_r($diff);
 echo "</pre>";
 ?>
 OUTPUT:
-<pre>Array
+Array
 (
     [0] => Array
         (
@@ -1155,90 +1170,8 @@ OUTPUT:
         )
 
 )
-</pre>
 
-45)<?php
-function array_diff_recursive($array1, $array2) {
-    $difference = [];
 
-    foreach ($array1 as $key => $value) {
-        // If key not in array2 → difference
-        if (!array_key_exists($key, $array2)) {
-            $difference[$key] = $value;
-        } else {
-            // If both values are arrays → check deeper
-            if (is_array($value) && is_array($array2[$key])) {
-                $newDiff = array_diff_recursive($value, $array2[$key]);
-                if (!empty($newDiff)) {
-                    $difference[$key] = $newDiff;
-                }
-            }
-            // If values are different → store value from array1
-            elseif ($value !== $array2[$key]) {
-                $difference[$key] = $value;
-            }
-        }
-    }
-
-    return $difference;
-}
-
-// Example usage
-$array1 = [
-    "student1" => ["name" => "Alice", "marks" => 85],
-    "student2" => ["name" => "Bob", "marks" => 72],
-    "student3" => ["name" => "Charlie", "marks" => 90]
-];
-
-$array2 = [
-    "student1" => ["name" => "Alice", "marks" => 85],
-    "student2" => ["name" => "Bob", "marks" => 75], // different
-    "student3" => ["name" => "Charlie", "marks" => 91] // different
-];
-
-$result = array_diff_recursive($array1, $array2);
-
-// Show result
-echo "<pre>";
-print_r($result);
-echo "</pre>";
-?>
-OUTPUT:
-<pre>Array
-(
-    [student2] => Array
-        (
-            [marks] => 72
-        )
-
-    [student3] => Array
-        (
-            [marks] => 90
-        )
-
-)
-</pre>
-
-46)<?php
-// Example array
-$fruits = array("Apple", "Banana", "Mango", "Orange", "Grapes");
-
-// Value to search
-$search = "Mango";
-
-// Find index
-$index = array_search($search, $fruits);
-
-if ($index !== false) {
-    echo "The value '$search' is found at index: $index";
-} else {
-    echo "The value '$search' is not found in the array.";
-}
-?>
-OUTPUT:
-The value 'Mango' is found at index: 2
-
-47)
 
 
 
