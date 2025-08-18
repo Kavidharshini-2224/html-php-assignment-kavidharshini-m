@@ -1503,6 +1503,270 @@ echo "The average is: " . calculateAverage($values);
 OUTPUT:
 The average is: 30
 
+60)<?php
+// Function to search a value in an associative array
+function searchValueInAssocArray($array, $searchValue) {
+    $result = array_keys($array, $searchValue, true); // strict search
+    if (!empty($result)) {
+        return $result; // return keys where value found
+    } else {
+        return null; // value not found
+    }
+}
+
+// Example usage
+$students = [
+    "101" => "Alice",
+    "102" => "Bob",
+    "103" => "Charlie",
+    "104" => "Bob"
+];
+
+$search = "Bob";
+$foundKeys = searchValueInAssocArray($students, $search);
+
+if ($foundKeys !== null) {
+    echo "Value '$search' found at keys: " . implode(", ", $foundKeys);
+} else {
+    echo "Value '$search' not found in the array.";
+}
+?>
+OUTPUT:
+Value 'Bob' found at keys: 102, 104
+
+61)<?php
+$x = [1, 2, 3, 4, 5];
+unset($x[2]);  // deletes element at index 2 (value 3)
+print_r($x);
+?>
+OUTPUT:
+Array ([0] => 1[1] => 2[3] => 4[4] => 5 ) 
+
+62)<?php
+// Sample values
+$values = [1.65, 1.65, -1.54];
+
+// Round each value to 1 decimal place
+foreach ($values as $num) {
+    echo "Original: $num → Rounded: " . round($num, 1) . "<br>";
+}
+?>
+OUTPUT:
+Original: 1.65 → Rounded: 1.7
+Original: 1.65 → Rounded: 1.7
+Original: -1.54 → Rounded: -1.5
+
+63)<?php
+// Function to return sum of even numbers in an array
+function sumEvenNumbers($arr) {
+    $sum = 0;
+    foreach ($arr as $num) {
+        if ($num % 2 == 0) {   // Check even number
+            $sum += $num;
+        }
+    }
+    return $sum;
+}
+
+// Example usage
+$numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+echo "Sum of even numbers: " . sumEvenNumbers($numbers);
+?>
+output:
+Sum of even numbers: 20
+
+64)<?php
+// Historical sales data (e.g., monthly sales in units or revenue)
+$sales = [1000, 1200, 1350, 1500, 1600, 1750, 1900];
+
+// Step 1: Calculate growth rates between months
+$growthRates = [];
+for ($i = 1; $i < count($sales); $i++) {
+    $growth = (($sales[$i] - $sales[$i - 1]) / $sales[$i - 1]) * 100; // %
+    $growthRates[] = $growth;
+}
+
+// Step 2: Calculate average growth rate
+$averageGrowthRate = array_sum($growthRates) / count($growthRates);
+
+// Step 3: Forecast next 3 months based on average growth rate
+$forecast = [];
+$lastSale = end($sales);  // get last known sales
+for ($i = 1; $i <= 3; $i++) {
+    $lastSale = $lastSale * (1 + $averageGrowthRate / 100);
+    $forecast[] = round($lastSale, 2);
+}
+
+// Step 4: Display results
+echo "<h2>Sales Forecast System</h2>";
+
+echo "<b>Historical Sales Data:</b> " . implode(", ", $sales) . "<br><br>";
+
+echo "<b>Monthly Growth Rates (%):</b> " . implode(", ", array_map(fn($v) => round($v, 2), $growthRates)) . "<br>";
+echo "<b>Average Growth Rate:</b> " . round($averageGrowthRate, 2) . "%<br><br>";
+
+echo "<b>Forecasted Sales (Next 3 Months):</b> " . implode(", ", $forecast) . "<br>";
+?>
+OUTPUT:
+Sales Forecast System
+Historical Sales Data: 1000, 1200, 1350, 1500, 1600, 1750, 1900
+
+Monthly Growth Rates (%): 20, 12.5, 11.11, 6.67, 9.38, 8.57
+Average Growth Rate: 11.37%
+
+Forecasted Sales (Next 3 Months): 2116.04, 2356.65, 2624.62
+
+65)<?php
+// Main string
+$mainString = "Welcome to PHP programming!";
+
+// Substring to search
+$search = "PHP";
+
+// Method 1: Using strpos() (works in all PHP versions)
+if (strpos($mainString, $search) !== false) {
+    echo "The string contains '$search'.<br>";
+} else {
+    echo "The string does not contain '$search'.<br>";
+}
+
+// Method 2: Using str_contains() (PHP 8+)
+if (function_exists('str_contains')) {
+    if (str_contains($mainString, $search)) {
+        echo "(Using str_contains) The string contains '$search'.";
+    } else {
+        echo "(Using str_contains) The string does not contain '$search'.";
+    }
+}
+?>
+OUTPUT:
+The string contains 'PHP'.
+(Using str_contains) The string contains 'PHP'.
+
+66)<?php
+$fruits = ["apple", "banana", "cherry"];
+
+// Using count()
+echo "Using count(): " . count($fruits) . "<br>";
+
+// Using sizeof()
+echo "Using sizeof(): " . sizeof($fruits) . "<br>";
+?>
+OUTPUT:
+Using count(): 3
+Using sizeof(): 3
+
+67)<?php
+// Input sentence
+$sentence = "PHP is great, and PHP is powerful. PHP is easy to learn!";
+
+// Step 1: Tokenize the sentence into words using regex
+// \W+ matches any non-word character (spaces, punctuation)
+$words = preg_split("/\W+/", strtolower($sentence), -1, PREG_SPLIT_NO_EMPTY);
+
+// Step 2: Count occurrences of each word
+$wordCount = array_count_values($words);
+
+// Step 3: Display the results
+echo "<h3>Word Frequency Count</h3>";
+foreach ($wordCount as $word => $count) {
+    echo "$word : $count <br>";
+}
+?>
+OUTPUT:
+Word Frequency Count
+php : 3 
+is : 3 
+great : 1 
+and : 1 
+powerful : 1 
+easy : 1 
+to : 1 
+learn : 1 
+
+68)<?php
+try {
+    $numerator = 10;
+    $denominator = 0;
+    
+    if ($denominator == 0) {
+        // Manually throw exception for clarity
+        throw new DivisionByZeroError("Cannot divide by zero!");
+    }
+    
+    $result = $numerator / $denominator;
+    echo "Result: $result";
+    
+} catch (DivisionByZeroError $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+OUTPUT:
+Error: Cannot divide by zero!
+
+69)<?php
+// Sample array
+$Color = array('A' => 'Blue', 'B' => 'Green', 'c' => 'Red');
+
+// Function to convert all values to lowercase
+function arrayToLower($arr) {
+    return array_map('strtolower', $arr);
+}
+
+// Function to convert all values to uppercase
+function arrayToUpper($arr) {
+    return array_map('strtoupper', $arr);
+}
+
+// Convert and display results
+echo "Values are in lower case.<br>";
+print_r(arrayToLower($Color));
+
+echo "<br><br>Values are in upper case.<br>";
+print_r(arrayToUpper($Color));
+?>
+OUTPUT:
+Values are in lower case.
+Array ([A] => blue[B] => green[c] => red ) 
+
+Values are in upper case.
+Array ([A] => BLUE[B] => GREEN[c] => RED ) 
+
+70)<!DOCTYPE html>
+<html>
+<head>
+    <title>Number Sequence Input</title>
+</head>
+<body>
+    <h2>Enter a sequence of numbers separated by commas</h2>
+    
+    <form method="post">
+        <input type="text" name="numbers" placeholder="e.g. 1,2,3,4,5" required>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+
+    <?php
+    if (isset($_POST['submit'])) {
+        // Get the input string
+        $input = $_POST['numbers'];
+
+        // Convert string to array using comma as delimiter
+        $numberArray = array_map('trim', explode(',', $input));
+
+        // Optional: Convert strings to integers
+        $numberArray = array_map('intval', $numberArray);
+
+        // Display the array
+        echo "<h3>Your number sequence as an array:</h3>";
+        echo "<pre>";
+        print_r($numberArray);
+        echo "</pre>";
+    }
+    ?>
+</body>
+</html>
+
+
 
 
 
