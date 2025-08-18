@@ -1171,6 +1171,337 @@ Array
 
 )
 
+46)<?php
+// Array of values
+$fruits = array("apple", "banana", "cherry", "mango", "orange");
+
+// Value to search
+$search = "mango";
+
+// Use array_search to find index
+$index = array_search($search, $fruits);
+
+if ($index !== false) {
+    echo "The value '$search' is found at index: $index";
+} else {
+    echo "The value '$search' is not found in the array.";
+}
+?>
+OUTPUT:
+The value 'mango' is found at index: 3
+
+47)<?php
+$x = [1, 2, 3, 4, 5];
+
+// delete the element at index 2 (value = 3)
+unset($x[2]);
+
+// re-index so keys become 0..n
+$x = array_values($x);
+
+// print: 1 2 4 5
+echo implode(' ', $x), PHP_EOL;
+
+OUTPUT:
+1 2 4 5 
+
+48)<?php
+// Array of student names (records)
+$students = ["Alex", "Brian", "Catherine", "David", "Emma"];
+
+// Loop through with record numbers
+foreach ($students as $recordNo => $name) {
+    echo "Record No: " . ($recordNo + 1) . " - Name: $name <br>";
+}
+?>
+
+OUTPUT:
+Record No: 1 - Name: Alex 
+Record No: 2 - Name: Brian 
+Record No: 3 - Name: Catherine 
+Record No: 4 - Name: David 
+Record No: 5 - Name: Emma 
+
+49)<?php
+// Player stats dataset (could come from DB)
+$players = [
+    ["name" => "Alice", "points" => 20, "assists" => 5, "rebounds" => 8],
+    ["name" => "Bob",   "points" => 15, "assists" => 7, "rebounds" => 10],
+    ["name" => "Charlie","points" => 25, "assists" => 4, "rebounds" => 6],
+];
+
+// Calculate performance index
+foreach ($players as &$player) {
+    $player['index'] = ($player['points'] * 0.5) +
+                       ($player['assists'] * 0.3) +
+                       ($player['rebounds'] * 0.2);
+}
+
+// Sort players by index (descending = best first)
+usort($players, function($a, $b) {
+    return $b['index'] <=> $a['index'];
+});
+
+// Calculate average performance index
+$totalIndex = array_sum(array_column($players, 'index'));
+$avgIndex   = $totalIndex / count($players);
+
+// Print results
+echo "Average Performance Index: " . number_format($avgIndex, 2) . "\n\n";
+
+foreach ($players as $rank => $player) {
+    echo "Rank " . ($rank + 1) . ": {$player['name']} (Index: " . number_format($player['index'], 2) . ")\n";
+}
+?>
+Output:
+Average Performance Index: 13.20 Rank 1: Charlie (Index: 14.90) Rank 2: Alice (Index: 13.10) Rank 3: Bob (Index: 11.60) 
+
+50)
+<?php
+// Original array
+$words = ["Apple", "BaNaNa", "Cherry", "MANGO"];
+
+// Convert all elements to lower-case
+$lowercase = array_map('strtolower', $words);
+
+// Convert all elements to upper-case
+$uppercase = array_map('strtoupper', $words);
+
+// Print results
+echo "Original Array: " . implode(", ", $words) . "<br>";
+echo "Lower-case Array: " . implode(", ", $lowercase) . "<br>";
+echo "Upper-case Array: " . implode(", ", $uppercase);
+?>
+OUTPUT:
+Original Array: Apple, BaNaNa, Cherry, MANGO
+Lower-case Array: apple, banana, cherry, mango
+Upper-case Array: APPLE, BANANA, CHERRY, MANGO
+
+51)<?php
+$fruits = ["apple", "banana", "cherry"];
+$first = array_shift($fruits);
+
+echo "Removed Element: $first\n";
+print_r($fruits);
+?>
+<br>
+<?php
+$fruits = ["banana", "cherry"];
+$count = array_unshift($fruits, "apple", "mango");
+
+echo "New Array Size: $count\n";
+print_r($fruits);
+?>
+OUTPUT:
+Removed Element: apple Array ([0] => banana[1] => cherry ) 
+ New Array Size: 4 Array ([0] => apple[1] => mango[2] => banana[3] => cherry ) 
+
+52)<?php
+// Stack example
+$stack = [];
+
+// Push elements
+array_push($stack, "A");
+array_push($stack, "B");
+array_push($stack, "C");
+
+echo "Stack after pushes: ";
+print_r($stack);
+
+// Pop elements (LIFO)
+$last = array_pop($stack);
+echo "Popped: $last\n";
+
+echo "Stack after pop: ";
+print_r($stack);
+?>
+<br>
+<?php
+// Queue example
+$queue = [];
+
+// Enqueue elements
+array_push($queue, "A");
+array_push($queue, "B");
+array_push($queue, "C");
+
+echo "Queue after enqueues: ";
+print_r($queue);
+
+// Dequeue element (FIFO)
+$first = array_shift($queue);
+echo "Dequeued: $first\n";
+
+echo "Queue after dequeue: ";
+print_r($queue);
+?>
+OUTPUT:
+Stack after pushes: Array ([0] => A[1] => B[2] => C ) Popped: C Stack after pop: Array ([0] => A[1] => B ) 
+ Queue after enqueues: Array ([0] => A[1] => B[2] => C ) Dequeued: A Queue after dequeue: Array ([0] => B[1] => C ) 
+
+53)<?php
+// Numeric array
+$numbers = [10, 20, 30, 40, 50];
+
+echo "Original Array: ";
+print_r($numbers);
+
+// array_pop() → removes LAST element
+$last = array_pop($numbers);
+echo "\nAfter array_pop():\n";
+echo "Removed Element: $last\n";
+print_r($numbers);
+
+// Reset array for shift demo
+$numbers = [10, 20, 30, 40, 50];
+
+// array_shift() → removes FIRST element
+$first = array_shift($numbers);
+echo "\nAfter array_shift():\n";
+echo "Removed Element: $first\n";
+print_r($numbers);
+?>
+OUTPUT:
+Original Array: Array ([0] => 10[1] => 20[2] => 30[3] => 40[4] => 50 ) 
+After array_pop(): Removed Element: 50 Array ([0] => 10[1] => 20[2] => 30[3] => 40 ) 
+After array_shift(): Removed Element: 10 Array ([0] => 20[1] => 30[2] => 40[3] => 50 ) 
+
+54)<?php
+// Initialize an empty queue
+$queue = [];
+
+// Customers enter the queue (Enqueue using array_push)
+array_push($queue, "Alice");
+array_push($queue, "Bob");
+array_push($queue, "Charlie");
+array_push($queue, "David");
+
+echo "Initial Queue:\n";
+print_r($queue);
+
+// Serve first customer (Dequeue using array_shift)
+$served = array_shift($queue);
+echo "\nCustomer served: $served\n";
+
+echo "Queue after serving one customer:\n";
+print_r($queue);
+
+// Add another customer
+array_push($queue, "Eve");
+echo "\nAfter new customer joins:\n";
+print_r($queue);
+
+// Serve two more customers
+$served1 = array_shift($queue);
+$served2 = array_shift($queue);
+echo "\nCustomers served: $served1, $served2\n";
+
+echo "Final Queue:\n";
+print_r($queue);
+?>
+OUTPUT:
+Initial Queue: Array ([0] => Alice[1] => Bob[2] => Charlie[3] => David ) 
+Customer served: Alice Queue after serving one customer: Array ([0] => Bob[1] => Charlie[2] => David ) 
+After new customer joins: Array ([0] => Bob[1] => Charlie[2] => David[3] => Eve ) 
+Customers served: Bob, Charlie Final Queue: Array ([0] => David[1] => Eve ) 
+
+55)<?php
+// Input string
+$string = "HELLO";
+
+// Convert string into array of characters
+$chars = str_split($string);
+
+// Initialize an empty stack
+$stack = [];
+
+// Push all characters onto the stack
+foreach ($chars as $ch) {
+    array_push($stack, $ch);
+}
+
+// Pop characters from the stack to form reversed string
+$reversed = "";
+while (!empty($stack)) {
+    $reversed .= array_pop($stack);
+}
+
+// Print results
+echo "Original String: $string\n";
+echo "Reversed String: $reversed\n";
+?>
+OUTPUT:
+Original String: HELLO Reversed String: OLLEH 
+
+56)<?php
+$fruits = ["banana", "apple", "Mango", "cherry", "Apple"];
+
+// Normal ascending sort
+sort($fruits);
+print_r($fruits);
+
+// Sort by value while keeping keys
+asort($fruits);
+print_r($fruits);
+
+// Sort by key
+$assoc = ["d"=>3, "a"=>1, "c"=>2];
+ksort($assoc);
+print_r($assoc);
+
+// Natural order
+$files = ["file1.txt", "file10.txt", "file2.txt"];
+natsort($files);
+print_r($files);
+?>
+Output:
+Array ([0] => Apple[1] => Mango[2] => apple[3] => banana[4] => cherry ) 
+Array ([0] => Apple[1] => Mango[2] => apple[3] => banana[4] => cherry ) 
+Array ([a] => 1[c] => 2[d] => 3 ) 
+Array ([0] => file1.txt[2] => file2.txt[1] => file10.txt ) 
+
+57)<?php
+$text = "Alice and Bob went to New York";
+preg_match_all("/\b[A-Z][a-zA-Z]*\b/", $text, $matches);
+print_r($matches[0]);
+?>
+OUTPUT:
+Array ([0] => Alice[1] => Bob[2] => New[3] => York ) 
+
+58)<?php
+// Sample string containing emails
+$text = "You can contact us at support@example.com, sales@myshop.org or admin123@test.co.in.";
+
+// Regular expression for email pattern
+$pattern = "/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,6}/";
+
+// Extract all matches
+preg_match_all($pattern, $text, $matches);
+
+// Print result
+echo "Extracted Email Addresses:\n";
+print_r($matches[0]);
+?>
+OUTPUT:
+Extracted Email Addresses: Array ([0] => support@example.com[1] => sales@myshop.org[2] => admin123@test.co.in ) 
+
+59)<?php
+// Function to calculate average of an array
+function calculateAverage($numbers) {
+    if (count($numbers) === 0) {
+        return 0; // Avoid division by zero
+    }
+    $sum = array_sum($numbers);  // Sum of elements
+    $count = count($numbers);    // Number of elements
+    return $sum / $count;        // Average
+}
+
+// Example usage
+$values = [10, 20, 30, 40, 50];
+echo "The average is: " . calculateAverage($values);
+?>
+OUTPUT:
+The average is: 30
 
 
 
