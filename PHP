@@ -823,5 +823,425 @@ Output:
 Random Password: /a2+/+3//cb+
 
 
+ASSIGNMENT-2
+
+31)<?php
+$fruits = array("Apple", "Banana", "Mango", "Orange");
+array_shift($fruits);
+print_r($fruits);
+?>
+
+OUTPUT:
+Array
+(
+    [0] => Banana
+    [1] => Mango
+    [2] => Orange
+)
+
+32)
+A)<?php
+$mail = "admin@example.com";
+$mail = str_replace("a","@",$mail);
+echo "Contact me at $mail.";
+?>
+OUTPUT:
+Contact me at @dmin@ex@mple.com.
+
+B)<?php
+$names = array("alex", "jean", "emily", "jane");
+$name = preg_grep("/^e/", $names);
+print_r($name);
+?>
+
+OUTPUT:
+Array
+(
+    [2] => emily
+)
+
+33)<?php
+$matrix = array(
+    array(1, 2, 3),   
+    array(4, 5, 6),     
+    array(7, 8, 9)    
+);
+$value = $matrix[1][2];  
+
+echo "The value in the second row and third column is: $value";
+?>
+
+OUTPUT:
+The value in the second row and third column is: 6
+
+34)<?php
+$text = "PHP is fun. Learning PHP can be very interesting. I love PHP!";
+$search = "/\bPHP\b/";
+$replace = "Java";
+
+// Replace all occurrences
+$result = preg_replace($search, $replace, $text);
+
+// Display output
+echo "Original Text: $text<br>";
+echo "Modified Text: $result";
+?>
+OUTPUT:
+Original Text: PHP is fun. Learning PHP can be very interesting. I love PHP!<br>Modified Text: Java is fun. Learning Java can be very interesting. I love Java!
+
+35)<?php
+$mainString = "PHP is a powerful scripting language for web development.";
+$searchWords = array("PHP", "Java", "web", "python");
+foreach ($searchWords as $word) {
+    if (strpos($mainString, $word) !== false) {
+        echo "The string contains '$word'.<br>";
+    } else {
+        echo "The string does NOT contain '$word'.<br>";
+    }
+}
+?>
+OUTPUT:
+The string contains 'PHP'.<br>The string does NOT contain 'Java'.<br>The string contains 'web'.<br>The string does NOT contain 'python'.<br>
+
+36)<?php
+$Vegetable= array("Apple", "Banana", "Carrot", "Orange", "Grapes");
+echo "The odd one is : " . $Vegetable[2];
+?>
+OUTPUT:
+The odd one is : Carrot
+
+37)PUSH:
+<?php
+$fruits = array("Apple", "Banana");
+array_push($fruits, "Mango", "Orange");
+
+print_r($fruits);
+?>
+
+OUTPUT:
+Array
+(
+    [0] => Apple
+    [1] => Banana
+    [2] => Mango
+    [3] => Orange
+)
+POP:
+<?php
+$fruits = array("Apple", "Banana", "Mango");
+$lastFruit = array_pop($fruits);
+
+echo "Removed: $lastFruit<br>";
+print_r($fruits);
+?>
+OUTPUT:
+Removed: Mango<br>Array
+(
+    [0] => Apple
+    [1] => Banana
+)
+
+38)<?php
+// Step 1: Create an array
+$fruits = array("Apple", "Banana", "Mango", "Orange");
+
+// Step 2: Initialize counter
+$i = 0;
+
+// Step 3: Find array length
+$length = count($fruits);
+
+// Step 4: Iterate using while loop
+while ($i < $length) {
+    echo "Fruit at index $i: " . $fruits[$i] . "<br>";
+    // Step 6: Increment counter
+    $i++;
+}
+?>
+OUTPUT:
+Fruit at index 0: Apple<br>Fruit at index 1: Banana<br>Fruit at index 2: Mango<br>Fruit at index 3: Orange<br>
+
+39)<?php
+// Step 1: Input student data (Name => Score)
+$students = array(
+    "Alice" => 85,
+    "Bob" => 72,
+    "Charlie" => 90,
+    "David" => 65,
+    "Eva" => 50
+);
+
+// Step 2: Function to calculate grade
+function getGrade($score) {
+    if ($score >= 90) return "A";
+    elseif ($score >= 80) return "B";
+    elseif ($score >= 70) return "C";
+    elseif ($score >= 60) return "D";
+    else return "F";
+}
+
+// Step 3: Generate summary report
+echo "<h3>Student Grade Report</h3>";
+foreach ($students as $name => $score) {
+    $grade = getGrade($score);
+    echo "$name - Score: $score - Grade: $grade <br>";
+}
+
+// Step 4: Calculate statistics
+$totalStudents = count($students);
+$totalScore = array_sum($students);
+$average = $totalScore / $totalStudents;
+$highest = max($students);
+$lowest = min($students);
+
+// Find topper(s)
+$topper = array_keys($students, $highest);
+
+echo "<h3>Summary</h3>";
+echo "Total Students: $totalStudents <br>";
+echo "Average Score: $average <br>";
+echo "Highest Score: $highest (Topper: " . implode(", ", $topper) . ")<br>";
+echo "Lowest Score: $lowest <br>";
+?>
+OUTPUT:
+<h3>Student Grade Report</h3>Alice - Score: 85 - Grade: B 
+<br>Bob - Score: 72 - Grade: C 
+<br>Charlie - Score: 90 - Grade: A 
+<br>David - Score: 65 - Grade: D 
+<br>Eva - Score: 50 - Grade: F 
+<br><h3>Summary</h3>Total Students: 5 
+<br>Average Score: 72.4 
+<br>Highest Score: 90 (Topper: Charlie)<br>Lowest Score: 50 <br>
+
+40)<?php
+// Input string
+$text = "Hello@123!! Welcome_to PHP#World 2025.";
+
+// Step 1: Split string into characters
+$chars = str_split($text);
+
+// Step 2: Filter characters (keep only a-z, A-Z, 0-9, and space)
+$filtered = array_filter($chars, function($ch) {
+    return preg_match('/[a-zA-Z0-9 ]/', $ch);
+});
+
+// Step 3: Join back into a string
+$cleanString = implode("", $filtered);
+
+// Output
+echo "Original String: $text <br>";
+echo "Cleaned String: $cleanString";
+?>
+
+OUTPUT:
+Original String: Hello@123!! Welcome_to PHP#World 2025. <br>Cleaned String: Hello123 Welcometo PHPWorld 2025
+
+41)<?php
+$text = "Contact us at support@example.com, sales@shop.org or admin123@test.co.in for details.";
+$pattern = "/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}/";
+preg_match_all($pattern, $text, $matches);
+$emails = $matches[0];
+echo "Extracted Email Addresses:<br>";
+foreach ($emails as $email) {
+    echo $email . "<br>";
+}
+?>
+OUTPUT:
+Extracted Email Addresses:<br>support@example.com<br>sales@shop.org<br>admin123@test.co.in<br>
+
+42)<?php
+// Given arrays
+$marks1 = array(360,310,310,330,313,375,456,111,256);
+$marks2 = array(350,340,356,330,321);
+$marks3 = array(630,340,570,635,434,255,298);
+
+// Step 1: Merge all arrays into one
+$allMarks = array_merge($marks1, $marks2, $marks3);
+
+// Step 2: Find maximum and minimum
+$maxMark = max($allMarks);
+$minMark = min($allMarks);
+
+// Step 3: Display results
+echo "Maximum Mark: $maxMark <br>";
+echo "Minimum Mark: $minMark <br>";
+?>
+
+OUTPUT:
+Maximum Mark: 635 <br>Minimum Mark: 111 <br>
+
+43)<?php
+$passwords = ["Test@123", "weakpass", "NoSpecial123", "StrongPass1$", "Short1!"];
+
+$pattern = "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
+
+foreach ($passwords as $pwd) {
+    if (preg_match($pattern, $pwd)) {
+        echo "Password '$pwd' is VALID <br>";
+    } else {
+        echo "Password '$pwd' is INVALID <br>";
+    }
+}
+?>
+OUTPUT:
+Password 'Test@123' is VALID <br>Password 'weakpass' is INVALID <br>Password 'NoSpecial123' is INVALID <br>Password 'StrongPass1$' is VALID <br>Password 'Short1!' is INVALID <br>
+
+44)<?php
+// Songs list
+$songs = array("Shape of You", "Blinding Lights", "Believer", "Levitating");
+
+// Playlist (empty at first)
+$playlist = array();
+
+// Add songs to playlist
+array_push($playlist, $songs[0], $songs[2], $songs[3]);
+
+// Show playlist
+echo "<h3>My Playlist</h3>";
+foreach ($playlist as $song) {
+    echo $song . "<br>";
+}
+
+// Remove a song ("Believer")
+$key = array_search("Believer", $playlist);
+if ($key !== false) {
+    unset($playlist[$key]);
+}
+
+// Playlist summary
+echo "<h3>Summary</h3>";
+echo "Total Songs: " . count($playlist);
+?>
+OUTPUT:
+<h3>My Playlist</h3>Shape of You<br>Believer<br>Levitating<br><h3>Summary</h3>Total Songs: 2
+
+45)<?php
+// Example multidimensional arrays
+$array1 = array(
+    array("id" => 1, "name" => "Alice"),
+    array("id" => 2, "name" => "Bob"),
+    array("id" => 3, "name" => "Charlie")
+);
+
+$array2 = array(
+    array("id" => 1, "name" => "Alice"),
+    array("id" => 2, "name" => "Bob"),
+    array("id" => 3, "name" => "David")
+);
+
+// Simple difference
+$diff = array_udiff($array1, $array2, function($a, $b) {
+    return ($a == $b) ? 0 : 1;
+});
+
+// Show result
+echo "<pre>";
+print_r($diff);
+echo "</pre>";
+?>
+OUTPUT:
+<pre>Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [name] => Alice
+        )
+
+    [2] => Array
+        (
+            [id] => 3
+            [name] => Charlie
+        )
+
+)
+</pre>
+
+45)<?php
+function array_diff_recursive($array1, $array2) {
+    $difference = [];
+
+    foreach ($array1 as $key => $value) {
+        // If key not in array2 → difference
+        if (!array_key_exists($key, $array2)) {
+            $difference[$key] = $value;
+        } else {
+            // If both values are arrays → check deeper
+            if (is_array($value) && is_array($array2[$key])) {
+                $newDiff = array_diff_recursive($value, $array2[$key]);
+                if (!empty($newDiff)) {
+                    $difference[$key] = $newDiff;
+                }
+            }
+            // If values are different → store value from array1
+            elseif ($value !== $array2[$key]) {
+                $difference[$key] = $value;
+            }
+        }
+    }
+
+    return $difference;
+}
+
+// Example usage
+$array1 = [
+    "student1" => ["name" => "Alice", "marks" => 85],
+    "student2" => ["name" => "Bob", "marks" => 72],
+    "student3" => ["name" => "Charlie", "marks" => 90]
+];
+
+$array2 = [
+    "student1" => ["name" => "Alice", "marks" => 85],
+    "student2" => ["name" => "Bob", "marks" => 75], // different
+    "student3" => ["name" => "Charlie", "marks" => 91] // different
+];
+
+$result = array_diff_recursive($array1, $array2);
+
+// Show result
+echo "<pre>";
+print_r($result);
+echo "</pre>";
+?>
+OUTPUT:
+<pre>Array
+(
+    [student2] => Array
+        (
+            [marks] => 72
+        )
+
+    [student3] => Array
+        (
+            [marks] => 90
+        )
+
+)
+</pre>
+
+46)<?php
+// Example array
+$fruits = array("Apple", "Banana", "Mango", "Orange", "Grapes");
+
+// Value to search
+$search = "Mango";
+
+// Find index
+$index = array_search($search, $fruits);
+
+if ($index !== false) {
+    echo "The value '$search' is found at index: $index";
+} else {
+    echo "The value '$search' is not found in the array.";
+}
+?>
+OUTPUT:
+The value 'Mango' is found at index: 2
+
+47)
+
+
+
+
 
 
