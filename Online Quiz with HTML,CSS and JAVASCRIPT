@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Online Quiz with Login (Single File)</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f2f2f2;margin:0;padding:20px;display:flex;align-items:center;justify-content:center;height:100vh}
+    .box{background:white;padding:20px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.08);width:360px}
+    h2{margin:0 0 12px 0;font-size:18px}
+    label{display:block;margin:8px 0 4px 0;font-size:13px}
+    input[type=text],input[type=password]{width:100%;padding:8px;border:1px solid #ccc;border-radius:4px}
+    button{margin-top:12px;width:100%;padding:10px;border:0;border-radius:4px;background:#0077ff;color:white;font-weight:bold;cursor:pointer}
+    .muted{color:#666;font-size:13px;margin-top:8px;text-align:center}
+    .hidden{display:none}
+    .answers{margin-top:10px}
+    .answer{display:block;margin:8px 0;padding:8px;border:1px solid #ddd;border-radius:4px;cursor:pointer}
+    .nav{display:flex;gap:8px;margin-top:12px}
+    .nav button{flex:1}
+    .result{font-size:16px;font-weight:bold;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <!-- Login -->
+    <div id="login">
+      <h2>Login to Start Quiz</h2>
+      <label>Username</label>
+      <input id="u" type="text" placeholder="username" />
+      <label>Password</label>
+      <input id="p" type="password" placeholder="password" />
+      <button id="loginBtn">Login</button>
+      <div class="muted">Use <b>user</b> / <b>pass123</b> or any name starting with "guest" (e.g. guest1)</div>
+      <div id="err" style="color:#c00;margin-top:8px"></div>
+    </div>
+
+    <!-- Quiz -->
+    <div id="quiz" class="hidden">
+      <h2 id="qtitle">Question</h2>
+      <div id="choices" class="answers"></div>
+      <div class="nav">
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+      </div>
+      <button id="submit" style="margin-top:10px">Submit Quiz</button>
+      <div style="margin-top:8px;text-align:center"><button id="logout" style="background:#eee;color:#333;">Logout</button></div>
+    </div>
+
+    <!-- Result -->
+    <div id="result" class="hidden">
+      <div class="result" id="scoreText"></div>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button id="retake">Retake</button>
+        <button id="goHome">Home</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple credentials and questions
+    const valid = {username:'user', password:'pass123'};
+    const qs = [
+      {q:'HTML stands for?', choices:['HyperText Markup Language','HighText Machine Language','Hyperlinks and Text Markup','None'], a:0},
+      {q:'CSS is used for?', choices:['Structure','Styling','Database','Logic'], a:1},
+      {q:'Which is a JavaScript array method?', choices:['push()','add()','insert()','append()'], a:0}
+    ];
+
+    let user = null, index = 0, answers = Array(qs.length).fill(null);
+
+    const loginDiv = document.getElementById('login');
+    const quizDiv = document.getElementById('quiz');
+    const resultDiv = document.getElementById('result');
+    const err = document.getElementById('err');
+    const qtitle = document.getElementById('qtitle');
+    const choices = document.getElementById('choices');
+
+    document.getElementById('loginBtn').addEventListener('click', ()=>{
+      const u = document.getElementById('u').value.trim();
+      const p = document.getElementById('p').value;
+      if(!u || !p){ err.textContent = 'Enter username and password'; return; }
+      if((u === valid.username && p === valid.password) || u.toLowerCase().startsWith('guest')){
+        user = u; err.textContent=''; startQuiz();
+      } else { err.textContent = 'Invalid credentials'; }
+    });
+
+    function startQuiz(){
+      loginDiv.classList.add('hidden');
+      resultDiv.classList.add('hidden');
+      quizDiv.classList.remove('hidden');
+      index = 0; answers = Array(qs.length).fill(null);
+      render();
+    }
+
+    function render(){
+      const item = qs[index];
+      qtitle.textContent = (index+1) + '. ' + item.q;
+      choices.innerHTML = '';
+      item.choices.forEach((c,i)=>{
+        const div = document.createElement('div');
+        div.className = 'answer';
+        div.textContent = c;
+        if(answers[index] === i) div.style.background = '#e6f0ff';
+        div.addEventListener('click', ()=>{
+          answers[index] = i; render();
+        });
+        choices.appendChild(div);
+      });
+      document.getElementById('prev').disabled = index===0;
+      document.getElementById('next').disabled = index===qs.length-1;
+    }
+
+    document.getElementById('prev').addEventListener('click', ()=>{ if(index>0){ index--; render(); }});
+    document.getElementById('next').addEventListener('click', ()=>{ if(index<qs.length-1){ index++; render(); }});
+
+    document.getElementById('submit').addEventListener('click', ()=>{
+      // simple check: confirm all answered
+      if(answers.includes(null)){
+        if(!confirm('Some questions unanswered. Submit anyway?')) return;
+      }
+      let score = 0; qs.forEach((q,i)=>{ if(answers[i]===q.a) score++; });
+      showResult(score);
+    });
+
+    function showResult(score){
+      quizDiv.classList.add('hidden');
+      resultDiv.classList.remove('hidden');
+      document.getElementById('scoreText').textContent = `Hello ${user} — You scored ${score} out of ${qs.length}`;
+    }
+
+    document.getElementById('logout').addEventListener('click', ()=>{ if(confirm('Logout?')){ user=null; quizDiv.classList.add('hidden'); loginDiv.classList.remove('hidden'); }});
+    document.getElementById('retake').addEventListener('click', ()=>{ startQuiz(); });
+    document.getElementById('goHome').addEventListener('click', ()=>{ resultDiv.classList.add('hidden'); loginDiv.classList.remove('hidden'); });
+  </script>
+</body>
+</html>
