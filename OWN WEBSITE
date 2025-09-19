@@ -1,0 +1,65 @@
+Index.html
+
+<html>
+<head>
+  <title>Temple Visit - Frames</title>
+</head>
+<frameset rows="100px,*">
+  <frame src="header.html" name="header" scrolling="no" noresize>
+  <frameset cols="200px,*">
+    <frame src="menu.html" name="menu" noresize>
+    <frame src="home.html" name="content">
+  </frameset>
+</frameset>
+</html>
+
+Menu.html
+
+<html>
+<body bgcolor="white">
+  <a href="home.html" target="content">Home</a><br>
+  <a href="visit.html" target="content">Visit Info</a><br>
+  <a href="contact.html" target="content">Contact</a><br>
+</body>
+</html>
+
+
+Home.html
+
+<html>
+<body>
+  <h2>Welcome to Our Local Temple</h2>
+  <p>This temple is a peaceful spiritual place in our village.</p>
+  <img src="C:\Users\kavid\OneDrive\Pictures\Screenshots\maruthamalai temple.jpg" alt="Temple" width="100%">
+</body>
+</html>
+
+Visit.html
+
+<html>
+<body>
+  <h2>Visit Information</h2>
+  <p><b>Timings:</b> 6:00 AM – 12:00 PM & 4:00 PM – 8:00 PM</p>
+  <p><b>Special Days:</b> Pournami, Karthigai Deepam, Thai Poosam</p>
+</body>
+</html>
+
+
+Temple.html
+
+<html>
+<body>
+  <h2>Contact Details</h2>
+  <p><b>Address:</b> Temple Street, Local Village, Tamil Nadu</p>
+  <p><b>Phone:</b> +91 98765 43210</p>
+</body>
+</html>
+
+Contact.html
+
+<h2>Contact</h2>
+  <p>Maruthamalai, Coimbatore, Tamil Nadu – 641046</p>
+  <p>+91 422 242 2490</p>
+  <p>maruthamalaitemple@gmail.com</p>
+
+
